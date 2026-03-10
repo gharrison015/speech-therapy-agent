@@ -1,65 +1,111 @@
-import Image from "next/image";
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { getSessionStats } from '@/lib/storage';
+import { getInProgress } from '@/lib/storage';
+import InstallPrompt from '@/components/InstallPrompt';
 
 export default function Home() {
+  const [stats, setStats] = useState<{
+    totalSessions: number;
+    thisWeekSessions: number;
+    currentStreak: number;
+    averageAccuracy: number;
+  } | null>(null);
+  const [hasInProgress, setHasInProgress] = useState(false);
+  const [greeting, setGreeting] = useState('');
+
+  useEffect(() => {
+    // Set greeting based on time of day
+    const hour = new Date().getHours();
+    if (hour < 12) setGreeting('Good morning');
+    else if (hour < 17) setGreeting('Good afternoon');
+    else setGreeting('Good evening');
+
+    // Load stats
+    getSessionStats().then(setStats);
+    getInProgress().then((ip) => setHasInProgress(!!ip));
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="flex flex-col items-center gap-8 py-8">
+      <InstallPrompt />
+
+      {/* Greeting */}
+      <div className="text-center">
+        <h1 className="text-3xl font-bold">{greeting}, Fred.</h1>
+        {stats && stats.currentStreak > 0 && (
+          <p className="text-lg text-muted mt-2">
+            Day {stats.totalSessions + 1} &middot; {stats.currentStreak}-day streak
+          </p>
+        )}
+        {stats && stats.currentStreak === 0 && stats.totalSessions > 0 && (
+          <p className="text-lg text-muted mt-2">
+            Welcome back! Ready to practice?
+          </p>
+        )}
+        {stats && stats.totalSessions === 0 && (
+          <p className="text-lg text-muted mt-2">
+            Ready for your first session?
+          </p>
+        )}
+      </div>
+
+      {/* Resume in-progress session */}
+      {hasInProgress && (
+        <Link
+          href="/session?resume=true"
+          className="w-full py-4 px-6 bg-warning text-white text-xl font-semibold rounded-2xl shadow-md text-center hover:opacity-90 active:scale-[0.98] transition-all"
+        >
+          Resume Session
+        </Link>
+      )}
+
+      {/* Start session button */}
+      <Link
+        href="/session"
+        className="w-full py-6 px-6 bg-primary text-white text-2xl font-bold rounded-2xl shadow-lg text-center hover:bg-primary-dark active:scale-[0.98] transition-all flex items-center justify-center gap-3"
+      >
+        <span className="text-3xl">🎙️</span>
+        Start Session
+      </Link>
+
+      {/* Quick stats */}
+      {stats && stats.totalSessions > 0 && (
+        <div className="w-full grid grid-cols-2 gap-3">
+          <div className="bg-card border border-border rounded-xl p-4 text-center">
+            <p className="text-sm text-muted">This Week</p>
+            <p className="text-2xl font-bold">{stats.thisWeekSessions} sessions</p>
+          </div>
+          <div className="bg-card border border-border rounded-xl p-4 text-center">
+            <p className="text-sm text-muted">Avg. Accuracy</p>
+            <p className="text-2xl font-bold">{stats.averageAccuracy}%</p>
+          </div>
+        </div>
+      )}
+
+      {/* View progress link */}
+      {stats && stats.totalSessions > 0 && (
+        <Link
+          href="/progress"
+          className="text-lg text-primary font-medium underline underline-offset-4 hover:text-primary-dark transition-colors"
+        >
+          View Progress
+        </Link>
+      )}
+
+      {/* Disclaimer on first visit */}
+      {stats && stats.totalSessions === 0 && (
+        <div className="w-full p-4 bg-gray-50 border border-border rounded-xl text-sm text-muted leading-relaxed">
+          <p className="font-medium text-foreground mb-1">Important</p>
+          <p>
+            This tool supplements — not replaces — professional speech therapy.
+            If you experience any new symptoms, worsening speech, confusion, weakness,
+            or vision changes, contact your medical team immediately.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      )}
     </div>
   );
 }

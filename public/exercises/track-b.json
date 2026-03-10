@@ -1,0 +1,116 @@
+{
+  "track": "cognitive-linguistic",
+  "trackLabel": "Cognitive-Linguistic Monitoring",
+  "description": "Embedded tasks that passively screen for cognitive changes. Mixed into every session.",
+  "exercises": [
+    {
+      "id": "b-naming-fruit",
+      "type": "cognitive",
+      "prompt": "Name a fruit that is yellow and curved.",
+      "target": "banana",
+      "acceptableAnswers": ["banana", "bananas"],
+      "category": "confrontation-naming"
+    },
+    {
+      "id": "b-naming-animal",
+      "type": "cognitive",
+      "prompt": "What animal barks and wags its tail?",
+      "target": "dog",
+      "acceptableAnswers": ["dog", "dogs", "puppy", "a dog"],
+      "category": "confrontation-naming"
+    },
+    {
+      "id": "b-naming-object",
+      "type": "cognitive",
+      "prompt": "What do you use to tell time on your wrist?",
+      "target": "watch",
+      "acceptableAnswers": ["watch", "a watch", "wristwatch"],
+      "category": "confrontation-naming"
+    },
+    {
+      "id": "b-naming-tool",
+      "type": "cognitive",
+      "prompt": "What tool do you use to hammer a nail?",
+      "target": "hammer",
+      "acceptableAnswers": ["hammer", "a hammer"],
+      "category": "confrontation-naming"
+    },
+    {
+      "id": "b-naming-vehicle",
+      "type": "cognitive",
+      "prompt": "What vehicle has two wheels and pedals?",
+      "target": "bicycle",
+      "acceptableAnswers": ["bicycle", "bike", "a bicycle", "a bike"],
+      "category": "confrontation-naming"
+    },
+    {
+      "id": "b-fluency-animals",
+      "type": "cognitive",
+      "prompt": "Name as many animals as you can in 30 seconds. Ready? Go!",
+      "target": null,
+      "category": "word-fluency",
+      "timedSeconds": 30
+    },
+    {
+      "id": "b-fluency-foods",
+      "type": "cognitive",
+      "prompt": "Name as many foods as you can in 30 seconds. Ready? Go!",
+      "target": null,
+      "category": "word-fluency",
+      "timedSeconds": 30
+    },
+    {
+      "id": "b-repetition-1",
+      "type": "cognitive",
+      "prompt": "Repeat after me: The quick brown fox jumps over the lazy dog.",
+      "target": "the quick brown fox jumps over the lazy dog",
+      "category": "repetition"
+    },
+    {
+      "id": "b-repetition-2",
+      "type": "cognitive",
+      "prompt": "Repeat after me: No ifs, ands, or buts.",
+      "target": "no ifs ands or buts",
+      "category": "repetition"
+    },
+    {
+      "id": "b-repetition-3",
+      "type": "cognitive",
+      "prompt": "Repeat after me: Today is a good day to practice.",
+      "target": "today is a good day to practice",
+      "category": "repetition"
+    },
+    {
+      "id": "b-command-1",
+      "type": "cognitive",
+      "prompt": "Follow this instruction and then say 'done': Touch your nose with your right hand.",
+      "target": "done",
+      "acceptableAnswers": ["done", "done."],
+      "category": "following-commands"
+    },
+    {
+      "id": "b-command-2",
+      "type": "cognitive",
+      "prompt": "Follow this instruction and then say 'done': Clap your hands twice.",
+      "target": "done",
+      "acceptableAnswers": ["done", "done."],
+      "category": "following-commands"
+    },
+    {
+      "id": "b-orientation-day",
+      "type": "cognitive",
+      "prompt": "What day of the week is it today?",
+      "target": null,
+      "category": "orientation",
+      "validateDynamic": "dayOfWeek"
+    },
+    {
+      "id": "b-orientation-month",
+      "type": "cognitive",
+      "prompt": "What month are we in?",
+      "target": null,
+      "category": "orientation",
+      "validateDynamic": "month"
+    }
+  ]
+}

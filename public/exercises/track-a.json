@@ -1,0 +1,267 @@
+{
+  "track": "oral-motor",
+  "trackLabel": "Oral-Motor Recovery",
+  "phases": [
+    {
+      "id": "acute",
+      "name": "Phase 1 — Acute",
+      "description": "Days 1-7 post-discharge. Gentle movements to restore range of motion.",
+      "exercises": [
+        {
+          "id": "a1-lip-purse",
+          "type": "motor",
+          "prompt": "Purse your lips together like you're about to whistle. Hold for 5 seconds.",
+          "instruction": "Hold your lips pursed tight",
+          "durationSeconds": 5,
+          "reps": 5,
+          "selfReport": true
+        },
+        {
+          "id": "a1-lip-spread",
+          "type": "motor",
+          "prompt": "Spread your lips into a wide smile. Hold for 5 seconds.",
+          "instruction": "Big smile — hold it",
+          "durationSeconds": 5,
+          "reps": 5,
+          "selfReport": true
+        },
+        {
+          "id": "a1-tongue-out",
+          "type": "motor",
+          "prompt": "Stick your tongue straight out as far as you can. Hold for 5 seconds.",
+          "instruction": "Tongue straight out — hold",
+          "durationSeconds": 5,
+          "reps": 5,
+          "selfReport": true
+        },
+        {
+          "id": "a1-tongue-left-right",
+          "type": "motor",
+          "prompt": "Touch the left corner of your mouth with your tongue, then the right corner. Alternate slowly.",
+          "instruction": "Left corner, then right corner",
+          "durationSeconds": 10,
+          "reps": 5,
+          "selfReport": true
+        },
+        {
+          "id": "a1-lip-close",
+          "type": "motor",
+          "prompt": "Press your lips firmly together. Hold for 5 seconds. Then relax.",
+          "instruction": "Lips pressed together — hold",
+          "durationSeconds": 5,
+          "reps": 5,
+          "selfReport": true
+        },
+        {
+          "id": "a1-vowel-ahh",
+          "type": "speech",
+          "prompt": "Say 'ahh' and hold it for about 5 seconds.",
+          "target": "ahh",
+          "phonetic": "ahh",
+          "reps": 3
+        },
+        {
+          "id": "a1-vowel-eee",
+          "type": "speech",
+          "prompt": "Say 'eee' and hold it for about 5 seconds.",
+          "target": "eee",
+          "phonetic": "eee",
+          "reps": 3
+        },
+        {
+          "id": "a1-vowel-ooo",
+          "type": "speech",
+          "prompt": "Say 'ooo' and hold it for about 5 seconds.",
+          "target": "ooo",
+          "phonetic": "ooo",
+          "reps": 3
+        },
+        {
+          "id": "a1-bilabial-pa",
+          "type": "speech",
+          "prompt": "Say: pa pa pa",
+          "target": "pa pa pa",
+          "phonetic": "pah pah pah",
+          "reps": 3
+        },
+        {
+          "id": "a1-bilabial-ba",
+          "type": "speech",
+          "prompt": "Say: ba ba ba",
+          "target": "ba ba ba",
+          "phonetic": "bah bah bah",
+          "reps": 3
+        },
+        {
+          "id": "a1-bilabial-ma",
+          "type": "speech",
+          "prompt": "Say: ma ma ma",
+          "target": "ma ma ma",
+          "phonetic": "mah mah mah",
+          "reps": 3
+        }
+      ]
+    },
+    {
+      "id": "subacute",
+      "name": "Phase 2 — Subacute",
+      "description": "Weeks 2-4. Building strength and coordination.",
+      "exercises": [
+        {
+          "id": "a2-tongue-tip",
+          "type": "motor",
+          "prompt": "Touch the tip of your tongue to the roof of your mouth, just behind your top teeth. Hold for 5 seconds.",
+          "instruction": "Tongue tip to the ridge behind your teeth — hold",
+          "durationSeconds": 5,
+          "reps": 5,
+          "selfReport": true
+        },
+        {
+          "id": "a2-tongue-circles",
+          "type": "motor",
+          "prompt": "Run your tongue in a circle inside your cheeks. Go clockwise, then reverse.",
+          "instruction": "Tongue circles inside your cheeks",
+          "durationSeconds": 10,
+          "reps": 3,
+          "selfReport": true
+        },
+        {
+          "id": "a2-smile-pucker",
+          "type": "motor",
+          "prompt": "Alternate between a big smile and a pucker as fast as you can for 10 seconds.",
+          "instruction": "Smile — pucker — smile — pucker",
+          "durationSeconds": 10,
+          "reps": 3,
+          "selfReport": true
+        },
+        {
+          "id": "a2-pataka",
+          "type": "speech",
+          "prompt": "Say: pa-ta-ka, pa-ta-ka, pa-ta-ka",
+          "target": "pa ta ka pa ta ka pa ta ka",
+          "phonetic": "pah-tah-kah",
+          "reps": 3
+        },
+        {
+          "id": "a2-tada-ka",
+          "type": "speech",
+          "prompt": "Say: ta-da-ka, ta-da-ka, ta-da-ka",
+          "target": "ta da ka ta da ka ta da ka",
+          "phonetic": "tah-dah-kah",
+          "reps": 3
+        },
+        {
+          "id": "a2-word-water",
+          "type": "speech",
+          "prompt": "Say the word: WATER",
+          "target": "water",
+          "phonetic": "WAH-ter",
+          "reps": 2
+        },
+        {
+          "id": "a2-word-table",
+          "type": "speech",
+          "prompt": "Say the word: TABLE",
+          "target": "table",
+          "phonetic": "TAY-bull",
+          "reps": 2
+        },
+        {
+          "id": "a2-word-banana",
+          "type": "speech",
+          "prompt": "Say the word: BANANA",
+          "target": "banana",
+          "phonetic": "buh-NAN-uh",
+          "reps": 2
+        },
+        {
+          "id": "a2-phrase-good-morning",
+          "type": "speech",
+          "prompt": "Say: Good morning",
+          "target": "good morning",
+          "phonetic": "good MOR-ning",
+          "reps": 2
+        },
+        {
+          "id": "a2-phrase-thank-you",
+          "type": "speech",
+          "prompt": "Say: Thank you very much",
+          "target": "thank you very much",
+          "phonetic": "thank you VEHR-ee much",
+          "reps": 2
+        }
+      ]
+    },
+    {
+      "id": "recovery",
+      "name": "Phase 3 — Recovery",
+      "description": "Weeks 4+. Building speed, fluency, and conversational speech.",
+      "exercises": [
+        {
+          "id": "a3-diadochokinesis",
+          "type": "speech",
+          "prompt": "Say 'puh-tuh-kuh' as fast as you can, over and over, for 10 seconds.",
+          "target": "puh tuh kuh puh tuh kuh puh tuh kuh",
+          "phonetic": "puh-tuh-kuh",
+          "reps": 3
+        },
+        {
+          "id": "a3-word-ambulance",
+          "type": "speech",
+          "prompt": "Say the word: AMBULANCE",
+          "target": "ambulance",
+          "phonetic": "AM-byoo-lance",
+          "reps": 2
+        },
+        {
+          "id": "a3-word-refrigerator",
+          "type": "speech",
+          "prompt": "Say the word: REFRIGERATOR",
+          "target": "refrigerator",
+          "phonetic": "reh-FRIJ-er-ay-tor",
+          "reps": 2
+        },
+        {
+          "id": "a3-word-thermometer",
+          "type": "speech",
+          "prompt": "Say the word: THERMOMETER",
+          "target": "thermometer",
+          "phonetic": "ther-MOM-eh-ter",
+          "reps": 2
+        },
+        {
+          "id": "a3-sentence-1",
+          "type": "speech",
+          "prompt": "Say: The weather is nice today",
+          "target": "the weather is nice today",
+          "phonetic": null,
+          "reps": 2
+        },
+        {
+          "id": "a3-sentence-2",
+          "type": "speech",
+          "prompt": "Say: Please pass the salt and pepper",
+          "target": "please pass the salt and pepper",
+          "phonetic": null,
+          "reps": 2
+        },
+        {
+          "id": "a3-sentence-3",
+          "type": "speech",
+          "prompt": "Say: I would like a glass of water",
+          "target": "I would like a glass of water",
+          "phonetic": null,
+          "reps": 2
+        },
+        {
+          "id": "a3-reading",
+          "type": "speech",
+          "prompt": "Read this sentence aloud: The quick brown fox jumps over the lazy dog.",
+          "target": "the quick brown fox jumps over the lazy dog",
+          "phonetic": null,
+          "reps": 2
+        }
+      ]
+    }
+  ]
+}
