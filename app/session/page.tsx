@@ -287,12 +287,11 @@ function SessionContent() {
           prompt={currentExercise.prompt}
           instruction={'instruction' in currentExercise ? currentExercise.instruction : ''}
           durationSeconds={'durationSeconds' in currentExercise ? currentExercise.durationSeconds : 5}
+          reps={'reps' in currentExercise ? currentExercise.reps : 1}
           onComplete={handleMotorComplete}
           onSkip={handleSkip}
           exerciseNumber={currentIndex + 1}
           totalExercises={exercises.length}
-          repNumber={'repNumber' in currentExercise ? currentExercise.repNumber : undefined}
-          totalReps={'totalReps' in currentExercise ? currentExercise.totalReps : undefined}
         />
       )}
 
@@ -302,13 +301,12 @@ function SessionContent() {
           prompt={currentExercise.prompt}
           target={'target' in currentExercise ? currentExercise.target : ''}
           phonetic={'phonetic' in currentExercise ? currentExercise.phonetic : null}
+          reps={'reps' in currentExercise ? currentExercise.reps : 1}
           onComplete={handleSpeechComplete}
           onSkip={handleSkip}
           exerciseNumber={currentIndex + 1}
           totalExercises={exercises.length}
           phase={selectedPhase}
-          repNumber={'repNumber' in currentExercise ? currentExercise.repNumber : undefined}
-          totalReps={'totalReps' in currentExercise ? currentExercise.totalReps : undefined}
         />
       )}
 

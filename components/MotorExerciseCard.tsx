@@ -6,29 +6,29 @@ interface MotorExerciseCardProps {
   prompt: string;
   instruction: string;
   durationSeconds: number;
+  reps: number;
   onComplete: (selfReport: number) => void;
   onSkip: () => void;
   exerciseNumber: number;
   totalExercises: number;
-  repNumber?: number;
-  totalReps?: number;
 }
 
 export default function MotorExerciseCard({
   prompt,
   instruction,
   durationSeconds,
+  reps,
   onComplete,
   onSkip,
   exerciseNumber,
   totalExercises,
-  repNumber,
-  totalReps,
 }: MotorExerciseCardProps) {
-  const [phase, setPhase] = useState<'ready' | 'active' | 'rating'>('ready');
+  const [phase, setPhase] = useState<'ready' | 'active' | 'rest' | 'rating'>('ready');
   const [timeLeft, setTimeLeft] = useState(durationSeconds);
-  const [rating, setRating] = useState<number>(0);
+  const [currentRep, setCurrentRep] = useState(1);
+  const [restTime, setRestTime] = useState(3);
 
+  // Countdown timer for active phase
   useEffect(() => {
     if (phase !== 'active') return;
 
@@ -36,7 +36,13 @@ export default function MotorExerciseCard({
       setTimeLeft((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
-          setPhase('rating');
+          // Rep finished — go to rest or rating
+          if (currentRep < reps) {
+            setPhase('rest');
+            setRestTime(3);
+          } else {
+            setPhase('rating');
+          }
           return 0;
         }
         return prev - 1;
@@ -44,15 +50,36 @@ export default function MotorExerciseCard({
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [phase]);
+  }, [phase, currentRep, reps]);
+
+  // Rest countdown between reps
+  useEffect(() => {
+    if (phase !== 'rest') return;
+
+    const interval = setInterval(() => {
+      setRestTime((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          // Start next rep automatically
+          setCurrentRep((r) => r + 1);
+          setTimeLeft(durationSeconds);
+          setPhase('active');
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [phase, durationSeconds]);
 
   const startTimer = useCallback(() => {
+    setCurrentRep(1);
     setTimeLeft(durationSeconds);
     setPhase('active');
   }, [durationSeconds]);
 
   const submitRating = useCallback((value: number) => {
-    setRating(value);
     onComplete(value);
   }, [onComplete]);
 
@@ -61,28 +88,35 @@ export default function MotorExerciseCard({
       {/* Progress indicator */}
       <div className="text-base text-muted w-full text-left">
         Exercise {exerciseNumber} of {totalExercises}
-        {repNumber && totalReps && totalReps > 1 && (
-          <span className="ml-2 text-primary font-semibold">
-            — Rep {repNumber} of {totalReps}
-          </span>
-        )}
       </div>
 
       {/* Exercise prompt */}
       <p className="text-xl font-medium leading-relaxed">{prompt}</p>
 
       {phase === 'ready' && (
-        <button
-          onClick={startTimer}
-          className="w-full py-4 px-6 bg-primary text-white text-xl font-semibold rounded-2xl shadow-md hover:bg-primary-dark active:scale-[0.98] transition-all"
-        >
-          Start Timer
-        </button>
+        <>
+          {reps > 1 && (
+            <p className="text-base text-muted">{reps} reps — timer starts on tap</p>
+          )}
+          <button
+            onClick={startTimer}
+            className="w-full py-4 px-6 bg-primary text-white text-xl font-semibold rounded-2xl shadow-md hover:bg-primary-dark active:scale-[0.98] transition-all"
+          >
+            Start Timer
+          </button>
+        </>
       )}
 
       {phase === 'active' && (
         <div className="flex flex-col items-center gap-4 w-full">
           <p className="text-lg font-medium text-primary">{instruction}</p>
+
+          {/* Rep indicator */}
+          {reps > 1 && (
+            <p className="text-base font-semibold text-primary">
+              Rep {currentRep} of {reps}
+            </p>
+          )}
 
           {/* Countdown circle */}
           <div className="relative w-28 h-28 flex items-center justify-center">
@@ -101,20 +135,26 @@ export default function MotorExerciseCard({
         </div>
       )}
 
+      {phase === 'rest' && (
+        <div className="flex flex-col items-center gap-4 w-full">
+          <p className="text-lg font-medium text-green-600">Good! Rest for a moment...</p>
+          <p className="text-5xl font-bold text-green-600">{restTime}</p>
+          <p className="text-base text-muted">Next: Rep {currentRep + 1} of {reps}</p>
+        </div>
+      )}
+
       {phase === 'rating' && (
         <div className="flex flex-col items-center gap-4 w-full">
-          <p className="text-lg font-medium">How did that feel?</p>
+          <p className="text-lg font-medium">
+            {reps > 1 ? `All ${reps} reps done! How did that feel overall?` : 'How did that feel?'}
+          </p>
           <div className="flex gap-3">
             {[1, 2, 3, 4, 5].map((value) => (
               <button
                 key={value}
                 onClick={() => submitRating(value)}
-                className={`w-14 h-14 rounded-xl text-xl font-bold transition-all
-                  ${rating === value
-                    ? 'bg-primary text-white scale-110'
-                    : 'bg-white border-2 border-border text-foreground hover:border-primary'
-                  }
-                `}
+                className="w-14 h-14 rounded-xl text-xl font-bold transition-all
+                  bg-white border-2 border-border text-foreground hover:border-primary active:bg-primary active:text-white"
               >
                 {value}
               </button>

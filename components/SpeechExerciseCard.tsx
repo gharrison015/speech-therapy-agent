@@ -10,26 +10,24 @@ interface SpeechExerciseCardProps {
   prompt: string;
   target: string;
   phonetic: string | null;
+  reps: number;
   onComplete: (transcript: string, confidence: number, latencyMs: number) => void;
   onSkip: () => void;
   exerciseNumber: number;
   totalExercises: number;
   phase: string;
-  repNumber?: number;
-  totalReps?: number;
 }
 
 export default function SpeechExerciseCard({
   prompt,
   target,
   phonetic,
+  reps,
   onComplete,
   onSkip,
   exerciseNumber,
   totalExercises,
   phase,
-  repNumber,
-  totalReps,
 }: SpeechExerciseCardProps) {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState('');
@@ -40,13 +38,37 @@ export default function SpeechExerciseCard({
   const [textInput, setTextInput] = useState('');
   const [startTime, setStartTime] = useState(0);
   const [error, setError] = useState('');
+  const [currentRep, setCurrentRep] = useState(1);
 
   const speechSupported = typeof window !== 'undefined' && isSpeechSupported();
 
-  // Speak the prompt on mount
+  // Speak the prompt on mount and when rep changes
   useEffect(() => {
     speak(prompt).catch(() => {});
-  }, [prompt]);
+  }, [prompt, currentRep]);
+
+  // Advance to next rep or finish
+  const advanceOrFinish = useCallback(
+    (repTranscript: string, repConfidence: number, repLatency: number) => {
+      if (currentRep < reps) {
+        // More reps to go — reset state and bump rep
+        setTimeout(() => {
+          setCurrentRep((r) => r + 1);
+          setTranscript('');
+          setFeedback('');
+          setShowFeedback(false);
+          setTextInput('');
+          setError('');
+        }, 1500);
+      } else {
+        // All reps done — report to session
+        setTimeout(() => {
+          onComplete(repTranscript, repConfidence, repLatency);
+        }, 1500);
+      }
+    },
+    [currentRep, reps, onComplete]
+  );
 
   const handleStartListening = useCallback(() => {
     setError('');
@@ -77,11 +99,7 @@ export default function SpeechExerciseCard({
           }).then((evaluation) => {
             setFeedback(evaluation.feedback + ' ' + evaluation.encouragement);
             setShowFeedback(true);
-
-            // Auto-advance after showing feedback
-            setTimeout(() => {
-              onComplete(result.transcript, result.confidence, latency);
-            }, 2500);
+            advanceOrFinish(result.transcript, result.confidence, latency);
           });
         }
       },
@@ -93,7 +111,7 @@ export default function SpeechExerciseCard({
         setError(err);
       }
     );
-  }, [target, phase, onComplete, startTime]);
+  }, [target, phase, startTime, advanceOrFinish]);
 
   const handleStopListening = useCallback(() => {
     stopListening();
@@ -103,17 +121,17 @@ export default function SpeechExerciseCard({
   const handleTextSubmit = useCallback(() => {
     if (!textInput.trim()) return;
     const latency = Date.now() - startTime;
-    onComplete(textInput.trim(), 1.0, latency);
-  }, [textInput, startTime, onComplete]);
+    advanceOrFinish(textInput.trim(), 1.0, latency);
+  }, [textInput, startTime, advanceOrFinish]);
 
   return (
     <div className="flex flex-col items-center gap-5 text-center">
       {/* Progress indicator */}
       <div className="text-base text-muted w-full text-left">
         Exercise {exerciseNumber} of {totalExercises}
-        {repNumber && totalReps && totalReps > 1 && (
+        {reps > 1 && (
           <span className="ml-2 text-primary font-semibold">
-            — Rep {repNumber} of {totalReps}
+            — Rep {currentRep} of {reps}
           </span>
         )}
       </div>
@@ -135,6 +153,9 @@ export default function SpeechExerciseCard({
       {showFeedback && (
         <div className="w-full p-4 bg-green-50 border border-green-200 rounded-xl">
           <p className="text-lg text-green-800">{feedback}</p>
+          {currentRep < reps && (
+            <p className="text-sm text-green-600 mt-2">Getting ready for rep {currentRep + 1}...</p>
+          )}
         </div>
       )}
 
@@ -159,7 +180,7 @@ export default function SpeechExerciseCard({
       )}
 
       {/* Microphone button or text input */}
-      {!showTextInput ? (
+      {!showFeedback && !showTextInput && (
         <>
           {speechSupported ? (
             <MicrophoneButton
@@ -181,7 +202,9 @@ export default function SpeechExerciseCard({
             Switch to text mode
           </button>
         </>
-      ) : (
+      )}
+
+      {!showFeedback && showTextInput && (
         <div className="w-full flex flex-col gap-3">
           <input
             type="text"

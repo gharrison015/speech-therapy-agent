@@ -6,8 +6,6 @@ export interface MotorExercise {
   durationSeconds: number;
   reps: number;
   selfReport: boolean;
-  repNumber?: number;
-  totalReps?: number;
 }
 
 export interface SpeechExercise {
@@ -17,8 +15,6 @@ export interface SpeechExercise {
   target: string;
   phonetic: string | null;
   reps: number;
-  repNumber?: number;
-  totalReps?: number;
 }
 
 export interface CognitiveExercise {
@@ -80,17 +76,8 @@ export async function buildSessionExercises(phaseId: string): Promise<Exercise[]
     throw new Error(`Phase not found: ${phaseId}`);
   }
 
-  // Expand exercises by reps, adding rep tracking info
-  const expanded: Exercise[] = [];
-  for (const exercise of phase.exercises) {
-    const reps = 'reps' in exercise ? exercise.reps : 1;
-    for (let i = 0; i < reps; i++) {
-      expanded.push({
-        ...exercise,
-        ...(reps > 1 ? { repNumber: i + 1, totalReps: reps } : {}),
-      });
-    }
-  }
+  // Each exercise appears once — reps are handled inside the card components
+  const exerciseList: Exercise[] = [...phase.exercises];
 
   // Pick 2-3 random cognitive exercises from Track B
   const cognitivePool = trackB.exercises || [];
@@ -98,7 +85,7 @@ export async function buildSessionExercises(phaseId: string): Promise<Exercise[]
   const cognitiveSelection = shuffled.slice(0, Math.min(3, shuffled.length));
 
   // Interleave cognitive exercises at roughly even intervals
-  const sessionExercises: Exercise[] = [...expanded];
+  const sessionExercises: Exercise[] = [...exerciseList];
   if (cognitiveSelection.length > 0 && sessionExercises.length > 0) {
     const interval = Math.floor(sessionExercises.length / (cognitiveSelection.length + 1));
     cognitiveSelection.forEach((cog, i) => {
