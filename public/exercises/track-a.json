@@ -99,6 +99,31 @@
           "target": "ma ma ma",
           "phonetic": "mah mah mah",
           "reps": 3
+        },
+        {
+          "id": "a1-labiodental-fa",
+          "type": "speech",
+          "prompt": "Say: fa fa fa. Gently bite your lower lip and blow.",
+          "target": "fa fa fa",
+          "phonetic": "fah fah fah",
+          "reps": 3
+        },
+        {
+          "id": "a1-sibilant-sa",
+          "type": "speech",
+          "prompt": "Say: sa sa sa. Tongue behind your top teeth, blow air through.",
+          "target": "sa sa sa",
+          "phonetic": "sah sah sah",
+          "reps": 3
+        },
+        {
+          "id": "a1-labiodental-motor",
+          "type": "motor",
+          "prompt": "Gently bite your lower lip with your upper teeth and hold. This is the position for the F sound.",
+          "instruction": "Upper teeth on lower lip — hold",
+          "durationSeconds": 5,
+          "reps": 3,
+          "selfReport": true
         }
       ]
     },
@@ -189,6 +214,54 @@
           "target": "thank you very much",
           "phonetic": "thank you VEHR-ee much",
           "reps": 2
+        },
+        {
+          "id": "a2-word-fish",
+          "type": "speech",
+          "prompt": "Say the word: FISH",
+          "target": "fish",
+          "phonetic": "FISH",
+          "reps": 3
+        },
+        {
+          "id": "a2-word-safe",
+          "type": "speech",
+          "prompt": "Say the word: SAFE",
+          "target": "safe",
+          "phonetic": "SAYF",
+          "reps": 3
+        },
+        {
+          "id": "a2-word-five",
+          "type": "speech",
+          "prompt": "Say the word: FIVE",
+          "target": "five",
+          "phonetic": "FYVE",
+          "reps": 2
+        },
+        {
+          "id": "a2-word-sun",
+          "type": "speech",
+          "prompt": "Say the word: SUN",
+          "target": "sun",
+          "phonetic": "SUHN",
+          "reps": 2
+        },
+        {
+          "id": "a2-fa-sa-contrast",
+          "type": "speech",
+          "prompt": "Say: fa — sa — fa — sa. Feel the difference between lip and tongue.",
+          "target": "fa sa fa sa",
+          "phonetic": "fah — sah — fah — sah",
+          "reps": 3
+        },
+        {
+          "id": "a2-word-sofa",
+          "type": "speech",
+          "prompt": "Say the word: SOFA — it has both S and F!",
+          "target": "sofa",
+          "phonetic": "SOH-fuh",
+          "reps": 3
         }
       ]
     },
@@ -259,6 +332,46 @@
           "prompt": "Read this sentence aloud: The quick brown fox jumps over the lazy dog.",
           "target": "the quick brown fox jumps over the lazy dog",
           "phonetic": null,
+          "reps": 2
+        },
+        {
+          "id": "a3-sentence-fish-safe",
+          "type": "speech",
+          "prompt": "Say: The fish is in the safe",
+          "target": "the fish is in the safe",
+          "phonetic": null,
+          "reps": 2
+        },
+        {
+          "id": "a3-sentence-first-last",
+          "type": "speech",
+          "prompt": "Say: First come, first served",
+          "target": "first come first served",
+          "phonetic": null,
+          "reps": 2
+        },
+        {
+          "id": "a3-sentence-soft-surface",
+          "type": "speech",
+          "prompt": "Say: The soft surface feels smooth",
+          "target": "the soft surface feels smooth",
+          "phonetic": null,
+          "reps": 2
+        },
+        {
+          "id": "a3-word-francisco",
+          "type": "speech",
+          "prompt": "Say: San Francisco",
+          "target": "San Francisco",
+          "phonetic": "san fran-SIS-koh",
+          "reps": 2
+        },
+        {
+          "id": "a3-word-satisfying",
+          "type": "speech",
+          "prompt": "Say the word: SATISFYING",
+          "target": "satisfying",
+          "phonetic": "SAT-is-fy-ing",
           "reps": 2
         }
       ]
