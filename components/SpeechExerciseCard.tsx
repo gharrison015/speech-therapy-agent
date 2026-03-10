@@ -15,6 +15,8 @@ interface SpeechExerciseCardProps {
   exerciseNumber: number;
   totalExercises: number;
   phase: string;
+  repNumber?: number;
+  totalReps?: number;
 }
 
 export default function SpeechExerciseCard({
@@ -26,6 +28,8 @@ export default function SpeechExerciseCard({
   exerciseNumber,
   totalExercises,
   phase,
+  repNumber,
+  totalReps,
 }: SpeechExerciseCardProps) {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState('');
@@ -107,6 +111,11 @@ export default function SpeechExerciseCard({
       {/* Progress indicator */}
       <div className="text-base text-muted w-full text-left">
         Exercise {exerciseNumber} of {totalExercises}
+        {repNumber && totalReps && totalReps > 1 && (
+          <span className="ml-2 text-primary font-semibold">
+            — Rep {repNumber} of {totalReps}
+          </span>
+        )}
       </div>
 
       {/* Prompt */}

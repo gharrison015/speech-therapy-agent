@@ -6,6 +6,8 @@ export interface MotorExercise {
   durationSeconds: number;
   reps: number;
   selfReport: boolean;
+  repNumber?: number;
+  totalReps?: number;
 }
 
 export interface SpeechExercise {
@@ -15,6 +17,8 @@ export interface SpeechExercise {
   target: string;
   phonetic: string | null;
   reps: number;
+  repNumber?: number;
+  totalReps?: number;
 }
 
 export interface CognitiveExercise {
@@ -76,12 +80,15 @@ export async function buildSessionExercises(phaseId: string): Promise<Exercise[]
     throw new Error(`Phase not found: ${phaseId}`);
   }
 
-  // Expand exercises by reps
+  // Expand exercises by reps, adding rep tracking info
   const expanded: Exercise[] = [];
   for (const exercise of phase.exercises) {
     const reps = 'reps' in exercise ? exercise.reps : 1;
     for (let i = 0; i < reps; i++) {
-      expanded.push({ ...exercise });
+      expanded.push({
+        ...exercise,
+        ...(reps > 1 ? { repNumber: i + 1, totalReps: reps } : {}),
+      });
     }
   }
 

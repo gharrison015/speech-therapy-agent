@@ -291,6 +291,8 @@ function SessionContent() {
           onSkip={handleSkip}
           exerciseNumber={currentIndex + 1}
           totalExercises={exercises.length}
+          repNumber={'repNumber' in currentExercise ? currentExercise.repNumber : undefined}
+          totalReps={'totalReps' in currentExercise ? currentExercise.totalReps : undefined}
         />
       )}
 
@@ -305,6 +307,8 @@ function SessionContent() {
           exerciseNumber={currentIndex + 1}
           totalExercises={exercises.length}
           phase={selectedPhase}
+          repNumber={'repNumber' in currentExercise ? currentExercise.repNumber : undefined}
+          totalReps={'totalReps' in currentExercise ? currentExercise.totalReps : undefined}
         />
       )}
 

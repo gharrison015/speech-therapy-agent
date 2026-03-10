@@ -10,6 +10,8 @@ interface MotorExerciseCardProps {
   onSkip: () => void;
   exerciseNumber: number;
   totalExercises: number;
+  repNumber?: number;
+  totalReps?: number;
 }
 
 export default function MotorExerciseCard({
@@ -20,6 +22,8 @@ export default function MotorExerciseCard({
   onSkip,
   exerciseNumber,
   totalExercises,
+  repNumber,
+  totalReps,
 }: MotorExerciseCardProps) {
   const [phase, setPhase] = useState<'ready' | 'active' | 'rating'>('ready');
   const [timeLeft, setTimeLeft] = useState(durationSeconds);
@@ -57,6 +61,11 @@ export default function MotorExerciseCard({
       {/* Progress indicator */}
       <div className="text-base text-muted w-full text-left">
         Exercise {exerciseNumber} of {totalExercises}
+        {repNumber && totalReps && totalReps > 1 && (
+          <span className="ml-2 text-primary font-semibold">
+            — Rep {repNumber} of {totalReps}
+          </span>
+        )}
       </div>
 
       {/* Exercise prompt */}
